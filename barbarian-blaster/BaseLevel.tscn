@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://hpu5mmxw3cr"]
+
+[sub_resource type="Environment" id="Environment_dq0bh"]
+
+[node name="BaseLevel" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+size = Vector3(100, 2, 100)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dq0bh")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 14.5, 9.5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
