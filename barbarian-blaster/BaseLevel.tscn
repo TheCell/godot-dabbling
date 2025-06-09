@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://hpu5mmxw3cr"]
+[gd_scene load_steps=3 format=3 uid="uid://hpu5mmxw3cr"]
+
+[ext_resource type="MeshLibrary" uid="uid://pgi26v4p4phn" path="res://MeshLibraries/SpaceLibrary.tres" id="1_lvb7b"]
 
 [sub_resource type="Environment" id="Environment_dq0bh"]
+ambient_light_color = Color(0.703808, 0.703808, 0.703808, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -15,3 +18,11 @@ environment = SubResource("Environment_dq0bh")
 transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 14.5, 9.5)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.862134, 0.506681, 0, -0.506681, 0.862134, 0, 7.96902, 0)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_lvb7b")
+cell_size = Vector3(4, 2, 4)
+data = {
+"cells": PackedInt32Array(0, 1, 0, 65534, 1, 0, 2, 1, 0)
+}
