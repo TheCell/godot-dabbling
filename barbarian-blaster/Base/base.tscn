@@ -18,6 +18,7 @@ material = SubResource("StandardMaterial3D_5x8ra")
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
 billboard = 1
+modulate = Color(0.862024, 0.284802, 0.338565, 1)
 text = "starting health"
 font_size = 500
 outline_size = 100
