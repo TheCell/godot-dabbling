@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://hpu5mmxw3cr"]
+[gd_scene load_steps=15 format=3 uid="uid://hpu5mmxw3cr"]
 
 [ext_resource type="PackedScene" uid="uid://kswk66nuam2g" path="res://Base/RayPickerCamera/ray_picker_camera.tscn" id="1_knq2t"]
 [ext_resource type="MeshLibrary" uid="uid://pgi26v4p4phn" path="res://MeshLibraries/SpaceLibrary.tres" id="1_lvb7b"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://camhs2feko1w2" path="res://Turret/turret.tscn" id="6_ufkdr"]
 [ext_resource type="Script" uid="uid://dsxh5ykpygxd2" path="res://bank.gd" id="8_tv3th"]
 [ext_resource type="PackedScene" uid="uid://e3ys2bywwxjx" path="res://difficultyManager/difficulty_manager.tscn" id="9_xkmwr"]
+[ext_resource type="PackedScene" uid="uid://cgkhuqo1he4gq" path="res://userInterface/victory_layer.tscn" id="10_now27"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvb7b"]
 albedo_color = Color(0.266575, 0.266575, 0.266575, 1)
@@ -137,16 +138,8 @@ label_settings = SubResource("LabelSettings_epnn3")
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_xkmwr")]
 
-[node name="VictoryLayer" type="CanvasLayer" parent="."]
+[node name="VictoryLayer" parent="." instance=ExtResource("10_now27")]
 visible = false
-
-[node name="ColorRect" type="ColorRect" parent="VictoryLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
 
 [connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="spawn_enemy"]
 [connection signal="stop_spawning_enemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
