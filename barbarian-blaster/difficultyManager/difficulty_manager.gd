@@ -2,7 +2,7 @@ extends Node
 
 signal stop_spawning_enemies;
 
-@export var game_length := 30.0;
+@export var game_length := 180.0;
 @export var spawn_time_curve: Curve;
 @export var spawn_health_curve: Curve;
 @onready var timer: Timer = $Timer
