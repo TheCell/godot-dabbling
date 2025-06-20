@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://hpu5mmxw3cr"]
+[gd_scene load_steps=13 format=3 uid="uid://hpu5mmxw3cr"]
 
 [ext_resource type="PackedScene" uid="uid://kswk66nuam2g" path="res://Base/RayPickerCamera/ray_picker_camera.tscn" id="1_knq2t"]
 [ext_resource type="MeshLibrary" uid="uid://pgi26v4p4phn" path="res://MeshLibraries/SpaceLibrary.tres" id="1_lvb7b"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://wpey3d0whcgg" path="res://enemy_path.gd" id="3_ufkdr"]
 [ext_resource type="Script" uid="uid://c5b1xjn6145do" path="res://turret_manager.gd" id="5_cwwxe"]
 [ext_resource type="PackedScene" uid="uid://camhs2feko1w2" path="res://Turret/turret.tscn" id="6_ufkdr"]
+[ext_resource type="Script" uid="uid://dsxh5ykpygxd2" path="res://bank.gd" id="8_tv3th"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvb7b"]
 albedo_color = Color(0.266575, 0.266575, 0.266575, 1)
@@ -20,6 +21,11 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_epnn3"]
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -105,5 +111,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
 script = ExtResource("5_cwwxe")
 turret = ExtResource("6_ufkdr")
 enemy_path = NodePath("../EnemyPath")
+
+[node name="Bank" type="MarginContainer" parent="." groups=["bank"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("8_tv3th")
+
+[node name="Label" type="Label" parent="Bank"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Placeholder"
+label_settings = SubResource("LabelSettings_epnn3")
 
 [connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="spawn_enemy"]
