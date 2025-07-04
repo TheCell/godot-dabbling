@@ -5,8 +5,15 @@ const SPEED = 5.0
 
 @export var jump_height: float = 1.0;
 @export var fall_multiplier: float = 2.5;
+@export var max_hitpoints: int = 100;
 
 var mouse_motion := Vector2.ZERO;
+var hitpoints: int = max_hitpoints:
+	set(value):
+		hitpoints = value;
+		print(hitpoints);
+		if (hitpoints <= 0):
+			get_tree().quit();
 
 @onready var camera_pivot: Node3D = $CameraPivot
 
@@ -15,7 +22,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	handle_camera_rotation();
-	
+
 	# Add the gravity.
 	if not is_on_floor():
 		if (velocity.y >= 0):
