@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cinrk8gxajeyj"]
+[gd_scene load_steps=8 format=3 uid="uid://cinrk8gxajeyj"]
 
 [ext_resource type="FontFile" uid="uid://bfwwf40ro6iks" path="res://Assets/Montserrat-VariableFont_wght.ttf" id="1_6p4a0"]
 [ext_resource type="Script" uid="uid://bnsq4i0ovqoy" path="res://Player/game_over_menu.gd" id="2_kxqsi"]
+[ext_resource type="Shader" uid="uid://088wmuswjysy" path="res://Player/game_over_menu.tres" id="3_1bqx8"]
 
 [sub_resource type="Theme" id="Theme_kxqsi"]
 default_font = ExtResource("1_6p4a0")
 default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o38b4"]
+shader = ExtResource("3_1bqx8")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kxqsi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6p4a0"]
 font_size = 96
@@ -20,6 +26,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_kxqsi")
 script = ExtResource("2_kxqsi")
+
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_o38b4")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_kxqsi")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
