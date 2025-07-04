@@ -26,7 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 top_level = true
 script = ExtResource("2_4ntmi")
 
-[node name="HitscanWeapon" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_gwnis")]
+[node name="SMG" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_gwnis")]
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
