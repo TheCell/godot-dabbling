@@ -1,15 +1,16 @@
 extends CharacterBody3D
 class_name Enemy
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED = 5.0;
 
 @export var attack_range := 1.5;
 @export var max_hitpoints := 100;
 @export var attack_damage := 20;
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
+
 
 var player: Node3D;
 var provoked := false;
@@ -35,10 +36,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down");
@@ -51,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	
 	if (provoked):
 		if (distance <= attack_range):
-			animation_player.play("Attack");
+			playback.travel("Attack");
 			
 	#var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
