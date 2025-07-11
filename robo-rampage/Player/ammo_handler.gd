@@ -23,6 +23,7 @@ func use_ammo(type: ammo_type) -> void:
 		
 func add_ammo(type: ammo_type, amount: int) -> void:
 		ammo_storage[type] += amount;
+		update_ammo_label(type);
 	
 
 func update_ammo_label(type: ammo_type) -> void:
