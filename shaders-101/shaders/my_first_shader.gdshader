@@ -1,51 +1,27 @@
 shader_type canvas_item;
 
+vec3 my_function(int a, float b)
+{
+	return vec3(1.0, 2.0, 3.0);
+}
+
+float add_floats(float a, float b)
+{
+	float result = a + b;
+	return result;
+}
+
+int subtract_int(int a, int b)
+{
+	int result = a - b;
+	return result;
+}
+
 void vertex()
 {
-	bool my_bool = true;
-	int my_int = 9;
-	if (my_bool)
-	{
-		
-	}
-	else if (my_int == 8)
-	{
-		
-	}
-	else
-	{
-		
-	}
-	
-	int i = 0;
-	while(i < 10)
-	{
-		i += 1;
-	}
-	
-	for (int j = 0; j < 5; j++)
-	{
-		
-	}
-	
-	my_int = 1;
-	switch(my_int)
-	{
-		case 1:
-			// Stuff
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		default:
-			break;
-	}
-	
-	do
-	{
-		
-	} while(false);
+	vec3 return_value = my_function(1, 2.0);
+	float sum_of_floats = add_floats(3.5, 4.2);
+	int result = subtract_int(5, 2);
 }
 
 void fragment()
