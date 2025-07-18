@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://bw86fsv6rvi5h"]
+[gd_scene load_steps=27 format=4 uid="uid://bw86fsv6rvi5h"]
 
 [ext_resource type="Script" uid="uid://bcl0x5yyyu3jr" path="res://scripts/common_techniques.gd" id="1_0ugy3"]
 [ext_resource type="Texture2D" uid="uid://dw27ks2iy6r18" path="res://assets/other/Terrain (16x16).png" id="2_4ntks"]
@@ -10,6 +10,8 @@
 [ext_resource type="Shader" uid="uid://cxidj16khcbai" path="res://shaders/map_to_gradient.gdshader" id="8_jqsh0"]
 [ext_resource type="Shader" uid="uid://boo3kcm7g3utj" path="res://shaders/screen_reading.gdshader" id="9_ty7i1"]
 [ext_resource type="Texture2D" uid="uid://w67qu37jpvs2" path="res://icon.svg" id="10_luoof"]
+[ext_resource type="Shader" uid="uid://bfmplg4h415d5" path="res://shaders/dissolve.gdshader" id="11_ux0nb"]
+[ext_resource type="Texture2D" uid="uid://jgyxm4826yuh" path="res://assets/other/Rock Head.png" id="12_hyy88"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mfsxn"]
 shader = ExtResource("4_xth1f")
@@ -193,6 +195,55 @@ shader_parameter/gradient_texture = SubResource("GradientTexture2D_pqqsy")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ux0nb"]
 shader = ExtResource("9_ty7i1")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ux0nb"]
+frequency = 0.0014
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hyy88"]
+noise = SubResource("FastNoiseLite_ux0nb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_432xp"]
+shader = ExtResource("11_ux0nb")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_hyy88")
+shader_parameter/dissolve_pct = 0.0
+
+[sub_resource type="Animation" id="Animation_ux0nb"]
+resource_name = "dissolve"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dissolve:material:shader_parameter/dissolve_pct")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_hyy88"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dissolve:material:shader_parameter/dissolve_pct")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hyy88"]
+_data = {
+&"RESET": SubResource("Animation_hyy88"),
+&"dissolve": SubResource("Animation_ux0nb")
+}
+
 [node name="CommonTechniques" type="Node2D"]
 script = ExtResource("1_0ugy3")
 
@@ -217,23 +268,35 @@ tile_map_data = PackedByteArray("AAABAAoAAAAHAAQAAAACAAoAAAAHAAQAAAADAAoAAAAHAAQ
 tile_set = SubResource("TileSet_t5lk8")
 
 [node name="Player" parent="." instance=ExtResource("2_ttseq")]
-position = Vector2(734, 314)
+position = Vector2(627, 314)
 
 [node name="Grayscale" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_jqsh0")
-position = Vector2(302, 384)
+position = Vector2(528, 384)
 scale = Vector2(3, 3)
 texture = ExtResource("6_mfsxn")
 
 [node name="Grayscale2" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_pqqsy")
-position = Vector2(497, 384)
+position = Vector2(723, 384)
 scale = Vector2(3, 3)
 texture = ExtResource("6_mfsxn")
 
 [node name="ScreenReading" type="Sprite2D" parent="."]
 z_index = 999
 material = SubResource("ShaderMaterial_ux0nb")
-position = Vector2(1046, 285)
+position = Vector2(1231, 285)
 scale = Vector2(5.68, 9)
 texture = ExtResource("10_luoof")
+
+[node name="Dissolve" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_432xp")
+position = Vector2(225, 404)
+scale = Vector2(3, 3)
+texture = ExtResource("12_hyy88")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hyy88")
+}
+autoplay = "dissolve"
