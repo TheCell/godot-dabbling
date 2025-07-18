@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://lg3n8vkn5qi4"]
+[gd_scene load_steps=30 format=3 uid="uid://lg3n8vkn5qi4"]
 
 [ext_resource type="Script" uid="uid://4klopl40a006" path="res://scripts/spatial_shaders.gd" id="1_db346"]
 [ext_resource type="PackedScene" uid="uid://twg0tri4g6hr" path="res://scenes/camera_controller.tscn" id="1_p4cbf"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dq50v6s4drwd1" path="res://icon.svg" id="4_3ay5j"]
 [ext_resource type="Shader" uid="uid://cvydqr72xk7yg" path="res://shaders/pbr.gdshader" id="5_2nhy8"]
 [ext_resource type="Shader" uid="uid://ctnr3gudvnth1" path="res://shaders/converted_shader.gdshader" id="6_lcdmc"]
+[ext_resource type="Shader" uid="uid://cmmk78iocgan4" path="res://shaders/vertex.gdshader" id="7_324du"]
+[ext_resource type="Shader" uid="uid://f8iejffbuee6" path="res://shaders/water.gdshader" id="8_pmqqv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7jfiy"]
 
@@ -73,6 +75,42 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 [sub_resource type="SphereMesh" id="SphereMesh_xpqp4"]
 material = SubResource("ShaderMaterial_pmqqv")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpqp4"]
+render_priority = 0
+shader = ExtResource("7_324du")
+
+[sub_resource type="SphereMesh" id="SphereMesh_plbai"]
+material = SubResource("ShaderMaterial_xpqp4")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_324du"]
+size = Vector2(10, 10)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pmqqv"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xpqp4"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_pmqqv")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xpqp4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wl0v6"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_xpqp4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wl0v6"]
+render_priority = 0
+shader = ExtResource("8_pmqqv")
+shader_parameter/normalmap_tex = SubResource("NoiseTexture2D_xpqp4")
+shader_parameter/normalmap_tex2 = SubResource("NoiseTexture2D_wl0v6")
+shader_parameter/albedo = Color(0.1275, 0.85, 0.85, 1)
+shader_parameter/direction1 = Vector2(1, 0)
+shader_parameter/direction2 = Vector2(0.5, 0.8)
+shader_parameter/scroll_speed1 = 0.03
+shader_parameter/scroll_speed2 = 0.03
+
 [node name="SpatialShaders" type="Node3D"]
 script = ExtResource("1_db346")
 
@@ -81,12 +119,13 @@ environment = SubResource("Environment_b0d0y")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.80536, 0.463107, -0.370038, 0, 0.624234, 0.781237, 0.592787, -0.629177, 0.502733, 0, 3.69932, 0)
+light_energy = 0.5
 
 [node name="CameraController" parent="." instance=ExtResource("1_p4cbf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.85299)
 
 [node name="SphereExample" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 6.01424, -4.76837e-07, -0.00254941)
 mesh = SubResource("SphereMesh_5gdlg")
 
 [node name="SphereExample2" type="MeshInstance3D" parent="."]
@@ -102,5 +141,17 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9, 0, 
 mesh = SubResource("SphereMesh_wl0v6")
 
 [node name="SphereExample5" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 14, 0, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 10, 0, 0)
 mesh = SubResource("SphereMesh_xpqp4")
+
+[node name="SphereExample6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11, 0, 0)
+mesh = SubResource("SphereMesh_plbai")
+
+[node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598471, 0, 0.125885)
+mesh = SubResource("PlaneMesh_324du")
+surface_material_override/0 = SubResource("ShaderMaterial_wl0v6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.165493, 1.84917, 1.376)
