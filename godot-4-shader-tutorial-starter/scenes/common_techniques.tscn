@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bw86fsv6rvi5h"]
+[gd_scene load_steps=16 format=4 uid="uid://bw86fsv6rvi5h"]
 
 [ext_resource type="Script" uid="uid://bcl0x5yyyu3jr" path="res://scripts/common_techniques.gd" id="1_0ugy3"]
 [ext_resource type="Texture2D" uid="uid://dw27ks2iy6r18" path="res://assets/other/Terrain (16x16).png" id="2_4ntks"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://bluu4d6awhemf" path="res://shaders/scrolling_bg.gdshader" id="4_xth1f"]
 [ext_resource type="Shader" uid="uid://b5nqu743w6ing" path="res://shaders/grayscale.gdshader" id="6_kak6i"]
 [ext_resource type="Texture2D" uid="uid://b4cgytxlrs4ak" path="res://assets/other/End.png" id="6_mfsxn"]
+[ext_resource type="Shader" uid="uid://cxidj16khcbai" path="res://shaders/map_to_gradient.gdshader" id="8_jqsh0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mfsxn"]
 shader = ExtResource("4_xth1f")
@@ -176,6 +177,17 @@ sources/0 = SubResource("TileSetAtlasSource_sehxt")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jqsh0"]
 shader = ExtResource("6_kak6i")
 
+[sub_resource type="Gradient" id="Gradient_jqsh0"]
+offsets = PackedFloat32Array(0.0634921, 0.322751, 0.661376, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.93, 0.0279, 0.0279, 1, 0.97, 0.33368, 0.0388, 1, 0.866667, 0.760784, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pqqsy"]
+gradient = SubResource("Gradient_jqsh0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pqqsy"]
+shader = ExtResource("8_jqsh0")
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_pqqsy")
+
 [node name="CommonTechniques" type="Node2D"]
 script = ExtResource("1_0ugy3")
 
@@ -200,10 +212,16 @@ tile_map_data = PackedByteArray("AAABAAoAAAAHAAQAAAACAAoAAAAHAAQAAAADAAoAAAAHAAQ
 tile_set = SubResource("TileSet_t5lk8")
 
 [node name="Player" parent="." instance=ExtResource("2_ttseq")]
-position = Vector2(575, 314)
+position = Vector2(734, 314)
 
 [node name="Grayscale" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_jqsh0")
 position = Vector2(302, 384)
+scale = Vector2(3, 3)
+texture = ExtResource("6_mfsxn")
+
+[node name="Grayscale2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pqqsy")
+position = Vector2(497, 384)
 scale = Vector2(3, 3)
 texture = ExtResource("6_mfsxn")
