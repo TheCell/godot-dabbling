@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="multiplayer-dabbling"
-run/main_scene="uid://ckvihwcwa6y7l"
+run/main_scene="uid://d3fnewo0vg2py"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

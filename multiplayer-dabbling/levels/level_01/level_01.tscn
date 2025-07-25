@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=4 uid="uid://ckvihwcwa6y7l"]
 
-[ext_resource type="Texture2D" uid="uid://chwbcf7n2ajtp" path="res://art/platforms/Platformer_spritesheet.png" id="1_ty3hu"]
-[ext_resource type="Texture2D" uid="uid://bja0wl8tcw71c" path="res://art/backgrounds/background_01.png" id="2_81a5f"]
-[ext_resource type="PackedScene" uid="uid://cthfcrkul1llw" path="res://player/player.tscn" id="2_mckh2"]
-[ext_resource type="Texture2D" uid="uid://bujx43rcy5b85" path="res://art/backgrounds/background_02.png" id="3_gg43x"]
+[ext_resource type="Texture2D" uid="uid://chwbcf7n2ajtp" path="res://art/platforms/Platformer_spritesheet.png" id="1_2fp4v"]
+[ext_resource type="Texture2D" uid="uid://bja0wl8tcw71c" path="res://art/backgrounds/background_01.png" id="2_dm0pi"]
+[ext_resource type="Texture2D" uid="uid://bujx43rcy5b85" path="res://art/backgrounds/background_02.png" id="3_71kry"]
+[ext_resource type="PackedScene" uid="uid://cthfcrkul1llw" path="res://player/player.tscn" id="4_aqob7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ty3hu"]
-texture = ExtResource("1_ty3hu")
+texture = ExtResource("1_2fp4v")
 texture_region_size = Vector2i(128, 128)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
@@ -60,7 +60,7 @@ motion_mirroring = Vector2(1334, 0)
 
 [node name="BackgroundTrees" type="Sprite2D" parent="----- Environment -----/ParallaxBackground/ParallaxTrees"]
 position = Vector2(0, 200)
-texture = ExtResource("2_81a5f")
+texture = ExtResource("2_dm0pi")
 centered = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="----- Environment -----/ParallaxBackground"]
@@ -69,10 +69,10 @@ motion_mirroring = Vector2(1334, 0)
 
 [node name="BackgroundRocks" type="Sprite2D" parent="----- Environment -----/ParallaxBackground/ParallaxLayer"]
 position = Vector2(0, 200)
-texture = ExtResource("3_gg43x")
+texture = ExtResource("3_71kry")
 centered = false
 
 [node name="----- Players -----" type="Node" parent="."]
 
-[node name="Player" parent="----- Players -----" instance=ExtResource("2_mckh2")]
+[node name="Player" parent="----- Players -----" instance=ExtResource("4_aqob7")]
 position = Vector2(616, 576)
