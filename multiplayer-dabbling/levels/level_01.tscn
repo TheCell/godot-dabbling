@@ -62,6 +62,3 @@ texture = SubResource("PlaceholderTexture2D_mckh2")
 
 [node name="Player" parent="." instance=ExtResource("2_mckh2")]
 position = Vector2(616, 576)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(571, 315)
