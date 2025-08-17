@@ -10,6 +10,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if multiplayer.multiplayer_peer == null:
+		return
 	if multiplayer.is_server():
 		if following_body != null:
 			global_position = lerp(
