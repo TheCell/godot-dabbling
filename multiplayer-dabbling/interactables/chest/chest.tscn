@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhe4sggwm34e"]
+[gd_scene load_steps=9 format=3 uid="uid://dhe4sggwm34e"]
 
 [ext_resource type="Texture2D" uid="uid://bb74mmf3rdg4r" path="res://art/objects/Chest_01_Locked.png" id="1_2bxje"]
 [ext_resource type="Script" uid="uid://bcc81bit584lv" path="res://interactables/chest/chest.gd" id="1_pmapc"]
+[ext_resource type="PackedScene" uid="uid://bgo2kicbt540f" path="res://interactables/key_door/key.tscn" id="2_1cndp"]
 [ext_resource type="Texture2D" uid="uid://ctvthkqtgqmgm" path="res://art/objects/Chest_01_Unlocked.png" id="2_pmapc"]
 [ext_resource type="PackedScene" uid="uid://bsa164acgffxf" path="res://interactables/interactable.tscn" id="4_rh8pd"]
 
@@ -16,8 +17,10 @@ properties/0/path = NodePath(".:is_locked")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="Chest" type="Node2D" node_paths=PackedStringArray("chest_locked", "chest_unlocked")]
+[node name="Chest" type="Node2D" node_paths=PackedStringArray("key_spawn", "chest_locked", "chest_unlocked")]
 script = ExtResource("1_pmapc")
+key_scene = ExtResource("2_1cndp")
+key_spawn = NodePath("KeySpawn")
 chest_locked = NodePath("ChestLocked")
 chest_unlocked = NodePath("ChestUnlocked")
 
@@ -45,8 +48,16 @@ collision_mask = 0
 position = Vector2(-3, -21.5)
 shape = SubResource("RectangleShape2D_2bxje")
 
+[node name="KeySpawn" type="Node2D" parent="."]
+position = Vector2(0, -35)
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_2bxje")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bgo2kicbt540f")
+spawn_path = NodePath("../KeySpawn")
+spawn_limit = 1
 
 [connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
 [connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]
